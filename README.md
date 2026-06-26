@@ -5,9 +5,9 @@
 **A free, open-source alternative to Revo Uninstaller — built with C# / .NET 8 WPF.**
 
 [Releases](https://github.com/brutal-build/BR-Unistaller/releases) ·
-[Features](https://raw.githubusercontent.com/brutal-build/BR-Unistaller/master/README.md#features) ·
-[Installation](https://raw.githubusercontent.com/brutal-build/BR-Unistaller/master/README.md#installation) ·
-[Stack](https://raw.githubusercontent.com/brutal-build/BR-Unistaller/master/README.md#stack)
+[Features](#features) ·
+[Installation](#installation) ·
+[Stack](#stack)
 
 ![version](https://img.shields.io/badge/version-0.0.1-blue)![license](https://img.shields.io/badge/license-MIT-white)![platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue)![dotnet](https://img.shields.io/badge/.NET-8.0-purple)
 
