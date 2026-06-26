@@ -1,0 +1,15 @@
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.AssemblyInfo.cs
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.deps.json
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.pdb
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.pdb
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUn.42383DC2.Up2Date
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\refint\BrutalUninstaller.Infrastructure.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Infrastructure.pdb
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Infrastructure\obj\Release\net8.0-windows10.0.19041.0\ref\BrutalUninstaller.Infrastructure.dll

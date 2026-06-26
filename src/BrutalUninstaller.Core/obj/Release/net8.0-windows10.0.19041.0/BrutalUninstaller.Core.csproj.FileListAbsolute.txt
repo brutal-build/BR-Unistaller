@@ -1,0 +1,12 @@
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.deps.json
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\bin\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.pdb
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.AssemblyInfo.cs
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\refint\BrutalUninstaller.Core.dll
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\BrutalUninstaller.Core.pdb
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.Core\obj\Release\net8.0-windows10.0.19041.0\ref\BrutalUninstaller.Core.dll

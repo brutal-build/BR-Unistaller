@@ -1,0 +1,20 @@
+﻿BrutalUninstaller.App
+
+
+winexe
+C#
+.cs
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.App\obj\Release\net8.0-windows10.0.19041.0\
+BrutalUninstaller.App
+none
+false
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP
+C:\Users\user\Desktop\_projects\Brutal unistaller\src\BrutalUninstaller.App\App.xaml
+554922369
+
+15-1935968938
+2362058987316
+MainWindow.xaml;Views\BatchProgressView.xaml;Views\JunkCleanerView.xaml;Views\ScanResultsWindow.xaml;Views\StartupView.xaml;
+
+False
+

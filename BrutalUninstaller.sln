@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CFAA915E-83C3-4957-80D2-6A8C825FC6AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrutalUninstaller.App", "src\BrutalUninstaller.App\BrutalUninstaller.App.csproj", "{05D92B78-3139-4FA1-BD84-308C302F0C3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrutalUninstaller.Core", "src\BrutalUninstaller.Core\BrutalUninstaller.Core.csproj", "{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrutalUninstaller.Infrastructure", "src\BrutalUninstaller.Infrastructure\BrutalUninstaller.Infrastructure.csproj", "{585C173A-C3E9-43FB-9CCD-B35D45CE51E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{978F0DFB-E414-4CD4-A7C5-EBCD0AAD479B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrutalUninstaller.Core.Tests", "tests\BrutalUninstaller.Core.Tests\BrutalUninstaller.Core.Tests.csproj", "{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrutalUninstaller.Infrastructure.Tests", "tests\BrutalUninstaller.Infrastructure.Tests\BrutalUninstaller.Infrastructure.Tests.csproj", "{7890072D-740C-4836-8B49-73BEBC945F54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05D92B78-3139-4FA1-BD84-308C302F0C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D92B78-3139-4FA1-BD84-308C302F0C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D92B78-3139-4FA1-BD84-308C302F0C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D92B78-3139-4FA1-BD84-308C302F0C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585C173A-C3E9-43FB-9CCD-B35D45CE51E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585C173A-C3E9-43FB-9CCD-B35D45CE51E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585C173A-C3E9-43FB-9CCD-B35D45CE51E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585C173A-C3E9-43FB-9CCD-B35D45CE51E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7890072D-740C-4836-8B49-73BEBC945F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7890072D-740C-4836-8B49-73BEBC945F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7890072D-740C-4836-8B49-73BEBC945F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7890072D-740C-4836-8B49-73BEBC945F54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05D92B78-3139-4FA1-BD84-308C302F0C3C} = {CFAA915E-83C3-4957-80D2-6A8C825FC6AC}
+		{760F37A0-7E5C-4C7B-8F61-94CD17BEA12B} = {CFAA915E-83C3-4957-80D2-6A8C825FC6AC}
+		{585C173A-C3E9-43FB-9CCD-B35D45CE51E9} = {CFAA915E-83C3-4957-80D2-6A8C825FC6AC}
+		{6DCB72F9-E22D-4E79-B81B-5DD55A80B8EE} = {978F0DFB-E414-4CD4-A7C5-EBCD0AAD479B}
+		{7890072D-740C-4836-8B49-73BEBC945F54} = {978F0DFB-E414-4CD4-A7C5-EBCD0AAD479B}
+	EndGlobalSection
+EndGlobal
