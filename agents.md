@@ -1,136 +1,136 @@
 # BRUTAL Uninstaller — Agents
 
-> Plik definiujący agentów, ich role, odpowiedzialności i gotowe prompty do `delegate_task`.
-> Projekt: C# / .NET 8 WPF — alternatywa dla Revo Uninstaller.
+> File defining agents, their roles, responsibilities and ready-made prompts for `delegate_task`.
+> Project: C# / .NET 8 WPF — alternative to Revo Uninstaller.
 
 ---
 
 ## Stack
 
-| Warstwa | Technologia |
+| Layer | Technology |
 |---------|------------|
-| Framework UI | WPF (.NET 8) |
+| UI Framework | WPF (.NET 8) |
 | MVVM | CommunityToolkit.Mvvm |
 | DI | Microsoft.Extensions.DependencyInjection |
 | Logging | Serilog |
 | Win32 API | P/Invoke (advapi32, shell32, msi.dll) |
 | UWP API | Windows.Management.Deployment |
 | Dark/Light | ModernWpfUI (Mica, Acrylic) |
-| Testy | xUnit + Moq |
-| Instalator | WiX Toolset |
-| Repo | GitHub, licencja MIT |
+| Tests | xUnit + Moq |
+| Installer | WiX Toolset |
+| Repo | GitHub, MIT license |
 
 ---
 
-## Agent 1: Architect — Architekt rozwiazania
+## Agent 1: Architect — Solution Architect
 
-**Rola:** Podejmuje decyzje architektoniczne, projektuje strukture rozwiazania, definiuje interfejsy.
+**Role:** Makes architectural decisions, designs the solution structure, defines interfaces.
 
-**Odpowiedzialnosci:**
-- Projektowanie hierarchii klas i interfejsow
-- Decyzje o wzorcach (MVVM, DI, Repository)
-- Struktura folderow i namespace'ow
-- Definiowanie kontraktow miedzy serwisami
+**Responsibilities:**
+- Designing class and interface hierarchies
+- Decisions on patterns (MVVM, DI, Repository)
+- Folder and namespace structure
+- Defining contracts between services
 
 **Delegate task prompt:**
 ```
-Dzialaj jako architekt rozwiazania C#/.NET dla projektu "BRUTAL Uninstaller" — alternatywy Revo Uninstaller.
+Act as a C#/.NET solution architect for the "BRUTAL Uninstaller" project — an alternative to Revo Uninstaller.
 
-Zadanie: [opisz konkretne zadanie architektoniczne]
+Task: [describe specific architectural task]
 
-Kontekst projektu:
+Project context:
 - C# .NET 8, WPF, MVVM (CommunityToolkit.Mvvm)
 - DI: Microsoft.Extensions.DependencyInjection
-- Win32 API przez P/Invoke
-- UWP przez Windows.Management.Deployment
+- Win32 API via P/Invoke
+- UWP via Windows.Management.Deployment
 - Serilog, ModernWpfUI, xUnit + Moq
-- requireAdministrator w manifestcie
+- requireAdministrator in manifest
 
-Wymagania:
-- Kazdy serwis ma interfejs (ISP)
-- async/await dla operacji I/O
+Requirements:
+- Every service has an interface (ISP)
+- async/await for I/O operations
 - ObservableProperty, RelayCommand
-- Structured logging kazdej operacji
-- Backup przed kazda destrukcyjna operacja
+- Structured logging for every operation
+- Backup before every destructive operation
 ```
 
 ---
 
-## Agent 2: WPF UI Developer — Interfejs uzytkownika
+## Agent 2: WPF UI Developer — User Interface
 
-**Rola:** Buduje wszystkie widoki XAML, style, motywy, konwertery.
+**Role:** Builds all XAML views, styles, themes, converters.
 
-**Odpowiedzialnosci:**
-- MainWindow — lista aplikacji + sidebar narzedzi
-- ScanResultsWindow — checkboxy sledow
+**Responsibilities:**
+- MainWindow — application list + tools sidebar
+- ScanResultsWindow — trace checkboxes
 - Batch Uninstall Progress — progress bar per-app
-- Startup Manager / Junk Cleaner / Scheduler widoki
+- Startup Manager / Junk Cleaner / Scheduler views
 - Dark/Light theme (ModernWpfUI Mica)
-- Konwertery (BoolToVisibility, SizeToString, itp.)
+- Converters (BoolToVisibility, SizeToString, etc.)
 
 **Delegate task prompt:**
 ```
-Dzialaj jako WPF UI Developer dla projektu "BRUTAL Uninstaller".
+Act as a WPF UI Developer for the "BRUTAL Uninstaller" project.
 
-Zadanie: [opisz konkretny widok do zbudowania]
+Task: [describe specific view to build]
 
-Wymagania UI:
-- Win11 styl: Mica backdrop, zaokraglone rogi, dark/light mode (ModernWpfUI)
-- Wszystkie bindingi przez x:Bind lub {Binding}
-- ObservableProperty + RelayCommand z CommunityToolkit.Mvvm
-- Async progress reporting przez IProgress<T>
-- ListView/DataGrid z sortowaniem, filtrowaniem, wirtualizacja
-- StatusBar z informacjami o liczbie aplikacji, rozmiarze
-- Sidebar nawigacyjny (All / Win32 / Store / Recently Installed + narzedzia)
+UI requirements:
+- Win11 style: Mica backdrop, rounded corners, dark/light mode (ModernWpfUI)
+- All bindings via x:Bind or {Binding}
+- ObservableProperty + RelayCommand from CommunityToolkit.Mvvm
+- Async progress reporting via IProgress<T>
+- ListView/DataGrid with sorting, filtering, virtualization
+- StatusBar with app count and size information
+- Sidebar navigation (All / Win32 / Store / Recently Installed + tools)
 
-Zrodlo: BRUTAL_UNINSTALLER_SPEC.md w folderze projektu — sekcja 5 (Widoki UI).
+Source: BRUTAL_UNINSTALLER_SPEC.md in the project folder — section 5 (UI Views).
 ```
 
-**Gotowe widoki do zbudowania:**
+**Ready views to build:**
 
-| Widok | Plik | Opis |
+| View | File | Description |
 |-------|------|------|
-| MainWindow | `Views/MainWindow.xaml` | Lista aplikacji + sidebar |
-| ScanResultsWindow | `Views/ScanResultsWindow.xaml` | Znalezione slady z checkboxami |
+| MainWindow | `Views/MainWindow.xaml` | Application list + sidebar |
+| ScanResultsWindow | `Views/ScanResultsWindow.xaml` | Found traces with checkboxes |
 | BatchProgressView | `Views/BatchProgressView.xaml` | Progress bar per-app |
-| StartupView | `Views/StartupView.xaml` | Manager startupu |
-| JunkCleanerView | `Views/JunkCleanerView.xaml` | Czyszczenie smieci |
-| SettingsView | `Views/SettingsView.xaml` | Ustawienia |
-| SchedulerView | `Views/SchedulerView.xaml` | Harmonogram skanowania |
+| StartupView | `Views/StartupView.xaml` | Startup manager |
+| JunkCleanerView | `Views/JunkCleanerView.xaml` | Junk cleaning |
+| SettingsView | `Views/SettingsView.xaml` | Settings |
+| SchedulerView | `Views/SchedulerView.xaml` | Scan schedule |
 
 ---
 
-## Agent 3: MVVM Core Developer — ViewModels i logika
+## Agent 3: MVVM Core Developer — ViewModels and Logic
 
-**Rola:** Buduje ViewModele i laczy je z serwisami przez DI.
+**Role:** Builds ViewModels and connects them to services via DI.
 
-**Odpowiedzialnosci:**
-- MainViewModel — lista aplikacji, filtrowanie, batch uninstall
-- ScanResultsViewModel — prezentacja sledow, checkboxy
-- StartupViewModel — lista startup entries
-- JunkCleanerViewModel — scan + czyszczenie
-- SettingsViewModel — konfiguracja
-- Nawigacja miedzy widokami
+**Responsibilities:**
+- MainViewModel — application list, filtering, batch uninstall
+- ScanResultsViewModel — trace presentation, checkboxes
+- StartupViewModel — startup entries list
+- JunkCleanerViewModel — scan + cleaning
+- SettingsViewModel — configuration
+- Navigation between views
 - ObservableProperty, RelayCommand, IProgress
 
 **Delegate task prompt:**
 ```
-Dzialaj jako MVVM Core Developer C#/.NET dla projektu "BRUTAL Uninstaller".
+Act as an MVVM Core Developer C#/.NET for the "BRUTAL Uninstaller" project.
 
-Zadanie: [opisz konkretny ViewModel do zbudowania]
+Task: [describe specific ViewModel to build]
 
-Wymagania:
+Requirements:
 - CommunityToolkit.Mvvm: [ObservableProperty], [RelayCommand]
-- DI wstrzykiwanie serwisow przez konstruktor
-- async Task dla komend asynchronicznych
-- IProgress<T> / INotifyValueChanged dla progress raportowania
-- ObservableCollection<T> dla list
-- FilteredCollectionView dla sort/filter
-- IDisposable pattern dla subskrypcji eventow
+- DI service injection via constructor
+- async Task for asynchronous commands
+- IProgress<T> / INotifyValueChanged for progress reporting
+- ObservableCollection<T> for lists
+- FilteredCollectionView for sort/filter
+- IDisposable pattern for event subscriptions
 
-Konwencje nazewnicze:
+Naming conventions:
 - MainViewModel, ScanResultsViewModel, StartupViewModel
-- Wszystkie w namespace BrutalUninstaller.App.ViewModels
+- All in namespace BrutalUninstaller.App.ViewModels
 - XAML: DataContext = {Binding Source={StaticResource ViewModelLocator}}
 ```
 
@@ -138,12 +138,12 @@ Konwencje nazewnicze:
 
 ## Agent 4: Infrastructure Developer — Win32 / P/Invoke / Native API
 
-**Rola:** Implementuje wszystkie niskopoziomowe wrappery na Windows API.
+**Role:** Implements all low-level Windows API wrappers.
 
-**Odpowiedzialnosci:**
-- RegistryHelper — odczyt/zapis kluczy rejestru (4 galęzie)
-- FileSystemHelper — operacje na plikach i folderach
-- ProcessHelper — uruchamianie procesow, kill, wait
+**Responsibilities:**
+- RegistryHelper — read/write registry keys (4 hives)
+- FileSystemHelper — file and folder operations
+- ProcessHelper — process startup, kill, wait
 - MsiApi — MsiConfigureProduct, MsiInstallProduct (msi.dll)
 - UwpApi — PackageManager, RemovePackageAsync
 - SystemRestore — SRSetRestorePointW (srclient.dll)
@@ -152,81 +152,81 @@ Konwencje nazewnicze:
 
 **Delegate task prompt:**
 ```
-Dzialaj jako Infrastructure Developer C#/.NET specjalizujacy sie w Windows Native API.
+Act as an Infrastructure Developer C#/.NET specializing in Windows Native API.
 
-Zadanie: [opisz konkretny wrapper]
+Task: [describe specific wrapper]
 
-Wymagania:
-- P/Invoke przez CsWin32 (Microsoft.Windows.CsWin32) lub reczne DllImport
-- Bezpieczna obsluga uchwytow (SafeHandle)
-- Structured logging kazdego wywolania
-- Obsluga bledow z Marshal.GetLastWin32Error
-- async Task dla operacji I/O
-- Testowalnosc przez interfejsy (IMsiApi, IRegistryHelper itp.)
+Requirements:
+- P/Invoke via CsWin32 (Microsoft.Windows.CsWin32) or manual DllImport
+- Safe handle management (SafeHandle)
+- Structured logging for every call
+- Error handling with Marshal.GetLastWin32Error
+- async Task for I/O operations
+- Testability via interfaces (IMsiApi, IRegistryHelper, etc.)
 
-Dla rejestru:
-- RegistryView.Registry64 / Registry32 dla Wow6432Node
-- RegistryHive dla HKLM, HKCU, HKU
-- Uzyj Microsoft.Win32.RegistryKey zamiast P/Invoke gdzie mozna
+For registry:
+- RegistryView.Registry64 / Registry32 for Wow6432Node
+- RegistryHive for HKLM, HKCU, HKU
+- Use Microsoft.Win32.RegistryKey instead of P/Invoke where possible
 
-Dla MSI:
+For MSI:
 - msi.dll: MsiConfigureProduct, MsiInstallProduct, MsiOpenProduct, MsiEnumProducts
-- DllImport z CharSet = CharSet.Unicode
+- DllImport with CharSet = CharSet.Unicode
 
-Dla UWP:
+For UWP:
 - Windows.Management.Deployment.PackageManager
-- Windows.Foundation.IAsyncOperation -> Task przez AsTask()
+- Windows.Foundation.IAsyncOperation -> Task via AsTask()
 ```
 
 ---
 
-## Agent 5: Core Services Developer — Logika biznesowa
+## Agent 5: Core Services Developer — Business Logic
 
-**Rola:** Implementuje glowna logike aplikacji — wykrywanie, deinstalacje, skanowanie.
+**Role:** Implements the main application logic — detection, uninstallation, scanning.
 
-**Odpowiedzialnosci:**
-- **AppDiscoveryService** — enumeracja aplikacji z rejestru (4 galęzie) + MSI + UWP + deduplikacja
-- **UninstallEngine** — uruchamianie UninstallString, MSI, UWP, exit code + kill process
+**Responsibilities:**
+- **AppDiscoveryService** — enumerate applications from registry (4 hives) + MSI + UWP + deduplication
+- **UninstallEngine** — run UninstallString, MSI, UWP, exit code + kill process
 - **ScanEngine** — RegistryScanner, FileSystemScanner, ServiceScanner, TaskScanner, FirewallScanner
 - **BackupService** — Restore Point, Registry Export, Snapshot
-- **StartupManager** — lista/toggle/remove/add startup entries (8 lokalizacji)
+- **StartupManager** — list/toggle/remove/add startup entries (8 locations)
 - **JunkCleaner** — Temp, Prefetch, Cache, Logs, Dumps
 - **SchedulerService** — BackgroundService, timer, orphan scan, notifications
-- **ExportService** — CSV/JSON/HTML raporty
+- **ExportService** — CSV/JSON/HTML reports
 
 **Delegate task prompt:**
 ```
-Dzialaj jako Core Services Developer C#/.NET dla projektu "BRUTAL Uninstaller".
+Act as a Core Services Developer C#/.NET for the "BRUTAL Uninstaller" project.
 
-Zadanie: [opisz konkretny serwis do zbudowania]
+Task: [describe specific service to build]
 
-Kontekst:
-- Wszystkie serwisy przez interfejs (IAppDiscoveryService, itp.)
-- Rejestracja w DI jako Singleton
+Context:
+- All services via interface (IAppDiscoveryService, etc.)
+- Registered in DI as Singleton
 - async/await, IProgress<T>, CancellationToken
 - Structured logging (Serilog)
-- Backup przed kazda modyfikacja
+- Backup before every modification
 
-Dla AppDiscoveryService:
-- Sczytaj HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall (x64)
-- Sczytaj HKLM\SOFTWARE\WOW6432Node\...\Uninstall (x86)
-- Sczytaj HKCU\SOFTWARE\...\Uninstall (user)
-- Sczytaj HKCU\SOFTWARE\WOW6432Node\...\Uninstall (user x86)
+For AppDiscoveryService:
+- Read HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall (x64)
+- Read HKLM\SOFTWARE\WOW6432Node\...\Uninstall (x86)
+- Read HKCU\SOFTWARE\...\Uninstall (user)
+- Read HKCU\SOFTWARE\WOW6432Node\...\Uninstall (user x86)
 - MSI: MsiEnumProducts + MsiGetProductInfo
 - UWP: PackageManager.FindPackages()
-- Merge + deduplikacja po DisplayName
-- Cache z odswiezeniem na F5
+- Merge + deduplication by DisplayName
+- Cache with refresh on F5
 
-Dla ScanEngine:
+For ScanEngine:
 - RegistryScanner: HKCU, HKLM, HKU\UserSIDs, HKCR\CLSID, TypeLib, Interface, AppID
 - FileSystemScanner: ProgramData, AppData, ProgramFiles, CommonProgramFiles, UserProfile\Documents, Start Menu
 - ServiceScanner: HKLM\SYSTEM\CurrentControlSet\Services
 - TaskScanner: ITaskScheduler / schtasks.exe
 - FirewallScanner: INetFwPolicy2 (COM)
 - ContextMenuScanner: HKCR\*\shell, HKCR\Directory\shell, HKCR\Folder\shell
-- EmptyFolderDetector: recursive z minimum 2 poziomami glebokosci
+- EmptyFolderDetector: recursive with minimum 2 levels depth
 
-Dla UninstallEngine:
+For UninstallEngine:
 - UninstallString: Process.Start + WaitForExit + exit code
 - MSI: MsiConfigureProduct(installLevel, INSTALLSTATE_ABSENT)
 - UWP: PackageManager.RemovePackageAsync()
@@ -235,97 +235,97 @@ Dla UninstallEngine:
 
 ---
 
-## Agent 6: Test Engineer — Testy jednostkowe i integracyjne
+## Agent 6: Test Engineer — Unit and Integration Tests
 
-**Rola:** Pokrywa kod testami xUnit + Moq, minimum 80% coverage.
+**Role:** Covers code with xUnit + Moq tests, minimum 80% coverage.
 
-**Odpowiedzialnosci:**
-- Unit testy dla kazdego serwisu
-- Mockowanie IRegistryHelper, IFileSystemHelper, IProcessHelper
-- Testy integracyjne z prawdziwym rejestrem (w kontenerze lub VM)
-- Testy edge case'ow: puste listy, bledy API, timeouty
-- Mockowanie Win32 API
+**Responsibilities:**
+- Unit tests for every service
+- Mocking IRegistryHelper, IFileSystemHelper, IProcessHelper
+- Integration tests with real registry (in container or VM)
+- Edge case tests: empty lists, API errors, timeouts
+- Mocking Win32 API
 
 **Delegate task prompt:**
 ```
-Dzialaj jako Test Engineer C#/.NET dla projektu "BRUTAL Uninstaller".
+Act as a Test Engineer C#/.NET for the "BRUTAL Uninstaller" project.
 
-Zadanie: Napisz testy dla [nazwa serwisu/klasy].
+Task: Write tests for [service/class name].
 
 Stack: xUnit + Moq + FluentAssertions
 
-Wymagania:
+Requirements:
 - Arrange-Act-Assert
-- Mock interfejsow (nie konkretnych implementacji)
-- Testy dla: sukces, pusty wynik, blad, timeout, CancellationToken
-- Theory + InlineData dla parametryzacji
-- Fixture/ClassFixture dla wspolnego setupu
-- Testy async: Task<ActionResult>
-- Coverage: minimum 80% linii kodu
-- Nazewnictwo: MethodName_StateUnderTest_ExpectedBehavior
+- Mock interfaces (not concrete implementations)
+- Tests for: success, empty result, error, timeout, CancellationToken
+- Theory + InlineData for parametrization
+- Fixture/ClassFixture for shared setup
+- Async tests: Task<ActionResult>
+- Coverage: minimum 80% code lines
+- Naming: MethodName_StateUnderTest_ExpectedBehavior
 ```
 
 ---
 
-## Agent 7: Security & Code Reviewer — Przeglad kodu
+## Agent 7: Security & Code Reviewer — Code Review
 
-**Rola:** Review kodu pod katem bezpieczenstwa, jakosci i zgodnosci ze specyfikacja.
+**Role:** Reviews code for security, quality, and specification compliance.
 
-**Odpowiedzialnosci:**
-- Sprawdzanie P/Invoke o DllImport (SafeHandle, Marshal)
-- Sprawdzanie rejestru (zakres uprawnien, RegistryView)
-- Sprawdzanie logowania (czy nie wyciekaja dane)
-- Sprawdzanie backupu (czy kazda operacja ma backup)
+**Responsibilities:**
+- Checking P/Invoke DllImport (SafeHandle, Marshal)
+- Checking registry (permission scope, RegistryView)
+- Checking logging (no data leaks)
+- Checking backup (every operation has backup)
 - Code style, MVVM pattern compliance
-- Sprawdzanie Dispose pattern, IDisposable
+- Checking Dispose pattern, IDisposable
 
 **Delegate task prompt:**
 ```
-Przeprowadz code review i security review dla kodu C#/.NET projektu "BRUTAL Uninstaller".
+Conduct a code review and security review for C#/.NET code of the "BRUTAL Uninstaller" project.
 
-Zadanie: Przejrzyj [sciezki/nazwy plikow]
+Task: Review [file paths/names]
 
-Sprawdz:
-- P/Invoke: SafeHandle, Marshal, DllImport z CharSet.Unicode
-- Registry: RegistryView.Registry64/Registry32, try/catch na UnauthorizedAccessException
-- Process: timeouty, kill tree, exit code validation
-- MSI: MsiCloseHandle po kazdym MsiOpen*
-- UWAGA: Aplikacja dziala jako Administrator — sprawdz czy nie ma RBAC bypass
-- Logging: brak danych uzytkownika w logach
-- MVVM: brak code-behind logiki w View (tylko ViewModel)
-- Backup: czy kazda modyfikacja ma backup przed soba
-- Race conditions: async void, fire-and-forget bez exception handling
+Check:
+- P/Invoke: SafeHandle, Marshal, DllImport with CharSet.Unicode
+- Registry: RegistryView.Registry64/Registry32, try/catch on UnauthorizedAccessException
+- Process: timeouts, kill tree, exit code validation
+- MSI: MsiCloseHandle after every MsiOpen*
+- WARNING: Application runs as Administrator — check for no RBAC bypass
+- Logging: no user data in logs
+- MVVM: no code-behind logic in View (ViewModel only)
+- Backup: every modification has backup before it
+- Race conditions: async void, fire-and-forget without exception handling
 
-Oznacz kazdy problem jako CRITICAL / HIGH / MEDIUM / LOW.
+Mark each issue as CRITICAL / HIGH / MEDIUM / LOW.
 ```
 
 ---
 
-## Agent 8: Installer & DevOps — Pakowanie i dystrybucja
+## Agent 8: Installer & DevOps — Packaging and Distribution
 
-**Rola:** Buduje instalator WiX, konfiguruje CI/CD, przygotowuje release.
+**Role:** Builds WiX installer, configures CI/CD, prepares releases.
 
-**Odpowiedzialnosci:**
+**Responsibilities:**
 - WiX Toolset — MSI installer
 - Manifest: requireAdministrator
-- MSIX packaging dla Windows Store (opcjonalnie)
+- MSIX packaging for Windows Store (optional)
 - GitHub Actions CI/CD
-- GitHub Release z assets
+- GitHub Release with assets
 - Versioning (SemVer)
 
 **Delegate task prompt:**
 ```
-Dzialaj jako DevOps/Installer Engineer dla projektu "BRUTAL Uninstaller" C#/.NET 8 WPF.
+Act as a DevOps/Installer Engineer for the "BRUTAL Uninstaller" C#/.NET 8 WPF project.
 
-Zadanie: [opisz konkretne zadanie]
+Task: [describe specific task]
 
-Wymagania:
-- WiX Toolset v4 lub v5
-- MSI z requireAdministrator w manifestcie
-- Kopia portable (xcopy deploy) oprocz MSI
+Requirements:
+- WiX Toolset v4 or v5
+- MSI with requireAdministrator in manifest
+- Portable copy (xcopy deploy) in addition to MSI
 - GitHub Actions: build + test + pack + release
-- SemVer: major.minor.patch z git tags
-- Code signing cert (opcjonalnie, future)
+- SemVer: major.minor.patch with git tags
+- Code signing cert (optional, future)
 ```
 
 ---
@@ -333,31 +333,31 @@ Wymagania:
 ## Workflow: Phases & Agent Assignments
 
 ```
-Faza 1 — MVP (Core Uninstall)
-├── Agent 1 (Architect):  Struktura solution, DI, logging, config
-├── Agent 2 (UI):         MainWindow — lista aplikacji
+Phase 1 — MVP (Core Uninstall)
+├── Agent 1 (Architect):  Solution structure, DI, logging, config
+├── Agent 2 (UI):         MainWindow — application list
 ├── Agent 3 (MVVM):       MainViewModel
 ├── Agent 4 (Infra):      RegistryHelper, ProcessHelper, MsiApi, UwpApi
 ├── Agent 5 (Core):       AppDiscoveryService, UninstallEngine, ScanEngine, BackupService
-├── Agent 6 (Test):       Testy dla kazdego z powyzszych
+├── Agent 6 (Test):       Tests for each of the above
 └── Agent 7 (Review):     Code review MVP
 
-Faza 2 — Rozszerzenia
+Phase 2 — Extensions
 ├── Agent 5 (Core):       Force Uninstall, Batch Uninstall
 ├── Agent 2 (UI):         BatchProgressView, StartupView, JunkCleanerView
 ├── Agent 3 (MVVM):       StartupViewModel, JunkCleanerViewModel
 ├── Agent 5 (Core):       StartupManager, JunkCleaner
-├── Agent 6 (Test):       Testy Fazy 2
-└── Agent 7 (Review):     Code review Fazy 2
+├── Agent 6 (Test):       Phase 2 Tests
+└── Agent 7 (Review):     Phase 2 Code Review
 
-Faza 3 — Nowe funkcje (lepsze niz Revo)
+Phase 3 — New Features (better than Revo)
 ├── Agent 5 (Core):       SchedulerService, ExportService
 ├── Agent 2 (UI):         SchedulerView, SettingsView
 ├── Agent 3 (MVVM):       SettingsViewModel + SchedulerViewModel
-├── Agent 5 (Core):       Raporty (CSV/JSON/HTML)
+├── Agent 5 (Core):       Reports (CSV/JSON/HTML)
 ├── Agent 2 (UI):         Dark/Light mode + Mica theme
 ├── Agent 8 (DevOps):     WiX installer + GitHub Actions
-├── Agent 6 (Test):       Testy Fazy 3
+├── Agent 6 (Test):       Phase 3 Tests
 └── Agent 7 (Review):     Final code review + security audit
 ```
 
@@ -365,25 +365,25 @@ Faza 3 — Nowe funkcje (lepsze niz Revo)
 
 ## Delegation Rules
 
-1. **Zawsze dzieki kolejnosc** — Faza 1 (MVP) pierwsza, potem Faza 2, potem Faza 3
-2. **Parallel batch** — max 3 subagenty na raz
-3. **Najpierw infrastruktura** — zanim Core Service, musi byc gotowy RegistryHelper/ProcessHelper
-4. **Potem serwis** — zanim ViewModel, musi byc gotowy serwis
-5. **Potem UI** — zanim Widok, musi byc gotowy ViewModel
-6. **Testy razem z kodem** — TDD: RED (test) -> GREEN (kod) -> REFACTOR
-7. **Review na koncu kazdej fazy** — zanim przejdziesz dalej
+1. **Always respect the order** — Phase 1 (MVP) first, then Phase 2, then Phase 3
+2. **Parallel batch** — max 3 subagents at once
+3. **Infrastructure first** — before Core Service, RegistryHelper/ProcessHelper must be ready
+4. **Then service** — before ViewModel, the service must be ready
+5. **Then UI** — before View, the ViewModel must be ready
+6. **Tests alongside code** — TDD: RED (test) -> GREEN (code) -> REFACTOR
+7. **Review at the end of each phase** — before moving on
 
 ---
 
 ## Quality Gates
 
-- [ ] Build przechodzi: `dotnet build --configuration Release`
-- [ ] Testy przechodza: `dotnet test --configuration Release`
-- [ ] Code review: brak CRITICAL/HIGH
-- [ ] Security review: brak CRITICAL/HIGH
-- [ ] MVP coverage: 80%+ linii
-- [ ] Backup dziala przed kazda operacja
-- [ ] Logowanie kazdej operacji (Serilog)
-- [ ] Dark/Light mode dziala
-- [ ] requireAdministrator w manifestcie
-- [ ] WiX installer tworzy poprawny MSI
+- [ ] Build passes: `dotnet build --configuration Release`
+- [ ] Tests pass: `dotnet test --configuration Release`
+- [ ] Code review: no CRITICAL/HIGH
+- [ ] Security review: no CRITICAL/HIGH
+- [ ] MVP coverage: 80%+ lines
+- [ ] Backup works before every operation
+- [ ] Logging of every operation (Serilog)
+- [ ] Dark/Light mode works
+- [ ] requireAdministrator in manifest
+- [ ] WiX installer creates valid MSI

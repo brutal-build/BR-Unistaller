@@ -1,20 +1,20 @@
-# BRUTAL Uninstaller - Specyfikacja Techniczna
+# BRUTAL Uninstaller - Technical Specification
 
-## 1. Metadane projektu
+## 1. Project Metadata
 
-| Pole | Wartość |
+| Field | Value |
 |------|---------|
-| Nazwa | **BRUTAL Uninstaller** |
-| Technologia | C# / .NET (WPF) |
-| Platforma | Windows 10/11 x64 |
-| Uprawnienia | Zawsze Administrator (`requireAdministrator`) |
-| UI | Nowoczesny (Win11: Mica, dark/light mode, rounded corners) |
-| Licencja | Open Source (MIT) |
-| Wzorzec | Alternatywa 1:1 dla Revo Uninstaller (bezpłatna) |
+| Name | **BRUTAL Uninstaller** |
+| Technology | C# / .NET (WPF) |
+| Platform | Windows 10/11 x64 |
+| Permissions | Always Administrator (`requireAdministrator`) |
+| UI | Modern (Win11: Mica, dark/light mode, rounded corners) |
+| License | Open Source (MIT) |
+| Pattern | Free 1:1 alternative to Revo Uninstaller |
 
 ---
 
-## 2. Architektura systemu
+## 2. System Architecture
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -23,7 +23,7 @@
 │  UI Layer (WPF)                                      │
 │  ┌─────────────┐ ┌─────────────┐ ┌────────────────┐  │
 │  │  MainWindow  │ │  HunterBar  │ │  Settings     │  │
-│  │  (lista app) │ │  (overlay)  │ │               │  │
+│  │  (app list)  │ │  (overlay)  │ │               │  │
 │  └──────┬───────┘ └──────┬──────┘ └───────┬───────┘  │
 │         │                │                │          │
 ├─────────┼────────────────┼────────────────┼──────────┤
@@ -58,22 +58,22 @@
 └──────────────────────────────────────────────────────┘
 ```
 
-### 2.1 Stack technologiczny
+### 2.1 Technology Stack
 
-| Komponent | Technologia | Uzasadnienie |
+| Component | Technology | Justification |
 |-----------|-------------|-------------|
-| Framework UI | **WPF (.NET 8)** | Natywny Windows, MVVM, wydajny DataGrid |
+| UI Framework | **WPF (.NET 8)** | Native Windows, MVVM, performant DataGrid |
 | MVVM | **CommunityToolkit.Mvvm** | `[ObservableProperty]`, `[RelayCommand]` |
-| DI Container | **Microsoft.Extensions.DependencyInjection** | Wbudowany, lekki |
-| Logowanie | **Serilog** | Structured logging |
-| Win32 API | **P/Invoke** (advapi32, shell32, msi.dll) | Dostęp do instalatora, rejestru |
-| UWP API | **Windows.Management.Deployment** | Zarządzanie Store apps |
+| DI Container | **Microsoft.Extensions.DependencyInjection** | Built-in, lightweight |
+| Logging | **Serilog** | Structured logging |
+| Win32 API | **P/Invoke** (advapi32, shell32, msi.dll) | Installer and registry access |
+| UWP API | **Windows.Management.Deployment** | Store apps management |
 | Dark Mode | **WPF-UI / ModernWpf** | Mica, Acrylic, Win11 themes |
-| Konfiguracja | **appsettings.json** + JSON serializer | Przenośność ustawień |
-| Instalator | **WiX Toolset** / **MSIX** | MSI dla dystrybucji |
-| Testy | **xUnit + Moq** | Unit + integration tests |
+| Configuration | **appsettings.json** + JSON serializer | Settings portability |
+| Installer | **WiX Toolset** / **MSIX** | MSI for distribution |
+| Tests | **xUnit + Moq** | Unit + integration tests |
 
-### 2.2 Struktura solution
+### 2.2 Solution Structure
 
 ```
 BrutalUninstaller.sln
@@ -89,7 +89,7 @@ BrutalUninstaller.sln
 │   │   │   ├── Dark.xaml
 │   │   │   └── Light.xaml
 │   │   └── Resources/
-│   ├── BrutalUninstaller.Core/         # Logika biznesowa
+│   ├── BrutalUninstaller.Core/         # Business logic
 │   │   ├── Models/
 │   │   ├── Services/
 │   │   ├── Interfaces/
@@ -106,9 +106,9 @@ BrutalUninstaller.sln
 
 ---
 
-## 3. Funkcjonalności (Core Features)
+## 3. Functionalities (Core Features)
 
-### 3.1 Lista aplikacji (App Discovery)
+### 3.1 Application List (App Discovery)
 
 ```csharp
 public interface IAppDiscoveryService
@@ -133,40 +133,40 @@ public class InstalledApp
 }
 ```
 
-**Źródła odkrywania aplikacji:**
+**Application Discovery Sources:**
 
-| Źródło | API | Opis |
+| Source | API | Description |
 |--------|-----|------|
-| HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall | Registry (x64) | Aplikacje systemowe |
-| HKLM\SOFTWARE\WOW6432Node\...\Uninstall | Registry (x86) | Aplikacje 32-bit |
-| HKCU\SOFTWARE\...\Uninstall | Registry (user) | Aplikacje per-user |
-| HKCU\SOFTWARE\WOW6432Node\...\Uninstall | Registry (user x86) | Aplikacje per-user 32-bit |
+| HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall | Registry (x64) | System applications |
+| HKLM\SOFTWARE\WOW6432Node\...\Uninstall | Registry (x86) | 32-bit applications |
+| HKCU\SOFTWARE\...\Uninstall | Registry (user) | Per-user applications |
+| HKCU\SOFTWARE\WOW6432Node\...\Uninstall | Registry (user x86) | Per-user 32-bit applications |
 | Windows.Management.Deployment.PackageManager | UWP API | Store / Modern apps |
-| HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products | MSI DB | MSI produkty |
-| Steam / Epic / GOG | (opcjonalnie - future) | Aplikacje z launcherów |
+| HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products | MSI DB | MSI products |
+| Steam / Epic / GOG | (optional - future) | Applications from launchers |
 
-### 3.2 Deinstalacja z pełnym skanowaniem resztek
+### 3.2 Uninstall with Full Residual Scan
 
-**Flow deinstalacji:**
+**Uninstall Flow:**
 
 ```
-1. Wybór aplikacji (single / batch)
+1. Select application (single / batch)
    │
    ▼
-2. Backup (przed usunięciem)
+2. Backup (before removal)
    ├── System Restore Point  ──  SystemRestore.CreateRestorePoint()
    ├── Registry Export        ──  regedit /e {app}_backup.reg
-   └── Log stanu              ──  zapis paths przed usunięciem
+   └── State log              ──  save paths before removal
    │
    ▼
-3. Normalna deinstalacja
-   ├── Uruchom UninstallString (cicho lub standardowo)
+3. Normal uninstall
+   ├── Run UninstallString (silent or standard)
    ├── MSI: MsiConfigureProduct / MsiInstallProduct
    ├── UWP: PackageManager.RemovePackageAsync()
-   └── Sprawdź exit code / pozostałe procesy
+   └── Check exit code / remaining processes
    │
    ▼
-4. Skanowanie resztek (Post-Uninstall Scan)
+4. Residual Scan (Post-Uninstall Scan)
    ├── Registry Scan ─── (HKCU, HKLM, HKU\SID)
    │   ├── SOFTWARE\{Publisher}\{AppName}
    │   ├── SOFTWARE\Classes\{CLSID}, TypeLib, Interface
@@ -181,7 +181,7 @@ public class InstalledApp
    │   ├── %UserProfile%\Documents\{AppName}
    │   └── C:\ProgramData\Microsoft\Windows\Start Menu\{AppName}.lnk
    │
-   └── Inne obiekty ───
+   └── Other objects ───
        ├── Services   ──  HKLM\SYSTEM\CurrentControlSet\Services\{AppService}
        ├── Drivers    ──  HKLM\SYSTEM\CurrentControlSet\Services\{AppDriver}
        ├── Planned Tasks ──  C:\Windows\System32\Tasks\{AppTask}
@@ -189,62 +189,62 @@ public class InstalledApp
        └── Context Menu   ──  HKCR\*\shell\{App}, HKCR\Directory\shell
    │
    ▼
-5. Prezentacja znalezionych śladów (zaznaczanie / odznaczanie)
+5. Display found traces (check/uncheck)
    │
    ▼
-6. Usunięcie wybranych śladów (z potwierdzeniem)
+6. Delete selected traces (with confirmation)
    │
    ▼
-7. Raport (log + eksport)
+7. Report (log + export)
 ```
 
 ### 3.3 Force Uninstall
 
-Używane gdy aplikacja nie ma właściwego deinstalatora lub standardowy flow zawiódł.
+Used when the application has no proper uninstaller or the standard flow failed.
 
 ```
-1. Analiza resztek aplikacji (tylko registry + filesystem - bez uruchamiania deinstalatora)
-2. Wykrycie wszystkich kluczy, plików, serwisów, zadań
-3. Full scan + usunięcie wszystkiego związanego z nazwą/wydawcą
-4. Opcjonalnie: deep scan (full disk search) dla pozostałości
+1. Analyze application residues (registry + filesystem only - without running the uninstaller)
+2. Detect all keys, files, services, tasks
+3. Full scan + delete everything related to name/publisher
+4. Optional: deep scan (full disk search) for residues
 ```
 
-### 3.4 Batch Uninstall (Nowa funkcja vs Revo)
+### 3.4 Batch Uninstall (New feature vs Revo)
 
-- Zaznaczanie wielu aplikacji jednocześnie (checkboxy + multi-select)
-- Sekwencyjna deinstalacja (jedna po drugiej)
-- Pool uninstall (max N równolegle, gdzie N konfigurowalne)
+- Select multiple applications at once (checkboxes + multi-select)
+- Sequential uninstall (one after another)
+- Pool uninstall (max N parallel, where N is configurable)
 - Progress bar per-app + global progress
-- Resume after failure (skip lub stop)
+- Resume after failure (skip or stop)
 
-### 3.5 Manager Startupu
+### 3.5 Startup Manager
 
-| Kategoria | Ścieżka |
+| Category | Path |
 |-----------|---------|
-| Rejestr (HKLM) | `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` |
-| Rejestr (HKCU) | `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` |
-| Rejestr (x64/x86) | jak wyżej + WOW6432Node |
-| Folder Startup | `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup` |
-| Folder Startup (All) | `%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup` |
+| Registry (HKLM) | `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` |
+| Registry (HKCU) | `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` |
+| Registry (x64/x86) | as above + WOW6432Node |
+| Startup Folder | `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup` |
+| Startup Folder (All) | `%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup` |
 | Scheduled Tasks | `C:\Windows\System32\Tasks\` + SCHTASKS API |
 | Services | HKLM\SYSTEM\CurrentControlSet\Services\ (Start=2 = auto) |
 
-Funkcje:
-- Lista wpisów z możliwością włączania/wyłączania
-- Usuwanie wpisów
-- Dodawanie własnych (opcjonalnie)
-- Opóźnienie startu (Delay launch)
+Features:
+- List of entries with enable/disable capability
+- Delete entries
+- Add custom entries (optional)
+- Startup delay (Delay launch)
 
-### 3.6 Backup przed usunięciem
+### 3.6 Backup before removal
 
 - **System Restore Point** — `SRSetRestorePointW` (srclient.dll)
-- **Registry Export** — całe gałęzie do `.reg` przed modyfikacją
-- **File list snapshot** — zapis ścieżek przed usunięciem
+- **Registry Export** — entire branches to `.reg` before modification
+- **File list snapshot** — save paths before removal
 
-### 3.7 Czyszczenie Junk Files
+### 3.7 Junk Files Cleanup
 
 ```
-Skanowane lokalizacje:
+Scanned locations:
 ├── %Temp%
 ├── C:\Windows\Temp
 ├── %AppData%\Local\Temp
@@ -259,31 +259,31 @@ Skanowane lokalizacje:
 
 ### 3.8 Windows Apps / Store Apps
 
-- Używane API: `Windows.Management.Deployment.PackageManager`
-- Lista wszystkich zainstalowanych paczek UWP/Store
-- Deinstalacja przez `RemovePackageAsync` lub przez `RemovePackageWithUserAsync`
-- Skanowanie resztek dla Store apps (AppData\Local\Packages\{PackageFamilyName}, etc.)
+- API used: `Windows.Management.Deployment.PackageManager`
+- List of all installed UWP/Store packages
+- Uninstall via `RemovePackageAsync` or via `RemovePackageWithUserAsync`
+- Residual scan for Store apps (AppData\Local\Packages\{PackageFamilyName}, etc.)
 
-### 3.9 Skan w tle (Scheduler) — Nowa funkcja vs Revo
+### 3.9 Background Scan (Scheduler) — New feature vs Revo
 
-- Timer w tle (BackgroundService / Timer)
-- Co N dni automatycznie uruchamia skan śladów po nieistniejących aplikacjach
-- Minimalny impact (niski priorytet I/O, throttling)
-- Powiadomienia po wykryciu orphaned traces
-- Konfigurowalny harmonogram (co 1/7/14/30 dni)
+- Background timer (BackgroundService / Timer)
+- Every N days, automatically scans traces of non-existent applications
+- Minimal impact (low I/O priority, throttling)
+- Notifications when orphaned traces are detected
+- Configurable schedule (every 1/7/14/30 days)
 
-### 3.10 Eksport raportów — Nowa funkcja vs Revo
+### 3.10 Report Export — New feature vs Revo
 
-| Format | Zawartość |
+| Format | Content |
 |--------|-----------|
-| **CSV** | Lista aplikacji, usunięte ślady, timestamp |
+| **CSV** | Application list, removed traces, timestamp |
 | **JSON** | Full structured data (machine-readable) |
-| **HTML** | Sformatowany raport z kolorami, do przeglądarki |
-| **TXT / Log** | Plain text z timestampami |
+| **HTML** | Formatted report with colors, for browser |
+| **TXT / Log** | Plain text with timestamps |
 
 ---
 
-## 4. Modele danych
+## 4. Data Models
 
 ```csharp
 public enum AppType
@@ -322,29 +322,29 @@ public class ScanResult
 
 ---
 
-## 5. Widoki UI (WPF)
+## 5. UI Views (WPF)
 
-### 5.1 MainWindow — Lista aplikacji
+### 5.1 MainWindow — Application List
 
 ```
 +--------------------------------------------------+
-|  BRUTAL Uninstaller         [ Szukaj...        ]  |
+|  BRUTAL Uninstaller         [ Search...       ]  |
 +----------------------+---------------------------+
 |  [Batch Uninstall]   |                           |
-|  [Force Uninstall]   |  Ikona | Nazwa | Wydawca  |
-|                      |  ------+-------+----------|
-|  ------------------  |   PC   | App1  | PubCo    |
-|  > All Applications   |   PC   | App2  | CorpX    |
-|  > Win32              |   PKG  | App3  | Store    |
+|  [Force Uninstall]   |  Icon | Name    | Publisher|
+|                      |  ------+--------+----------|
+|  ------------------  |   PC   | App1   | PubCo    |
+|  > All Applications   |   PC   | App2   | CorpX    |
+|  > Win32              |   PKG  | App3   | Store    |
 |  > Store Apps         |                           |
-|  > Recently Installed |  [Szczegoly]  [Usun]      |
+|  > Recently Installed |  [Details]  [Remove]      |
 |  ------------------  |                           |
-|  Narzedzia            |  Rozmiar: 250 MB          |
-|  > Startup Manager    |  Data: 2026-01-15         |
-|  > Junk Cleaner       |  Typ: MSI                 |
-|  > Scheduler          |  Wersja: 2.3.1            |
+|  Tools                |  Size: 250 MB              |
+|  > Startup Manager    |  Date: 2026-01-15         |
+|  > Junk Cleaner       |  Type: MSI                |
+|  > Scheduler          |  Version: 2.3.1           |
 |  > Settings           |                           |
-|  > About              |  [Raporty]                |
+|  > About              |  [Reports]                |
 +----------------------+---------------------------+
 |  Status: 42 apps found | 2.1 GB total | Ready    |
 +--------------------------------------------------+
@@ -354,24 +354,24 @@ public class ScanResult
 
 ```
 +--------------------------------------------------+
-|  Znalezione slady po: AppName                    |
+|  Found traces of: AppName                        |
 +--------------------------------------------------+
-|  Rejestr (13 znalezionych)                       |
+|  Registry (13 found)                             |
 |    [X] HKLM\SOFTWARE\Publisher\AppName           |
 |    [X] HKLM\SOFTWARE\Classes\CLSID\{...}         |
 |    [ ] HKCU\SOFTWARE\Publisher\AppName           |
 |                                                  |
-|  Pliki (8 znalezionych)                          |
+|  Files (8 found)                                 |
 |    [X] C:\Program Files\AppName\                 |
 |    [X] C:\ProgramData\AppName\                   |
 |    [X] C:\Users\...\AppData\Roaming\AppName      |
 |                                                  |
-|  Skroty / Inne (3 znalezionych)                  |
+|  Shortcuts / Other (3 found)                     |
 |    [X] Start Menu\AppName.lnk                    |
 |    [ ] Service: AppService                       |
 |                                                  |
-|        [Zaznacz wszystkie]  [Odznacz]            |
-|        [Usun zaznaczone]    [Anuluj]             |
+|        [Select all]  [Deselect]                  |
+|        [Remove selected]  [Cancel]               |
 +--------------------------------------------------+
 ```
 
@@ -379,33 +379,33 @@ public class ScanResult
 
 ```
 +--------------------------------------------------+
-|  Batch Uninstall (5 aplikacji)                   |
+|  Batch Uninstall (5 applications)                |
 +--------------------------------------------------+
-|  AppName 1  [####################]  100%  Gotowe   |
-|  AppName 2  [####################]  100%  Gotowe   |
-|  AppName 3  [##############......]   73%  Skanuje  |
-|  AppName 4  [....................]    0%  Oczekuje |
-|  AppName 5  [....................]    0%  Oczekuje |
+|  AppName 1  [####################]  100%  Done    |
+|  AppName 2  [####################]  100%  Done    |
+|  AppName 3  [##############......]   73%  Scanning|
+|  AppName 4  [....................]    0%  Waiting |
+|  AppName 5  [....................]    0%  Waiting |
 |                                                  |
-|  Calkowity postep: [############....]  54%       |
+|  Total progress: [############....]  54%         |
 |                                                  |
-|        [Wstrzymaj]  [Pomin]  [Anuluj]            |
+|        [Pause]  [Skip]  [Cancel]                 |
 +--------------------------------------------------+
 ```
 
 ---
 
-## 6. Komponenty kluczowe (klasy)
+## 6. Key Components (Classes)
 
 ### 6.1 AppDiscoveryService
 
 ```csharp
 public class AppDiscoveryService : IAppDiscoveryService
 {
-    // Otwiera klucze rejestru (4 gałęzie) + MSI + UWP
-    // Merge wyniki, usuwa duplikaty
-    // Cache wyniki (refresh przy F5)
-    // Async enumeracja (IAsyncEnumerable)
+    // Opens registry keys (4 branches) + MSI + UWP
+    // Merges results, removes duplicates
+    // Caches results (refresh on F5)
+    // Async enumeration (IAsyncEnumerable)
 }
 ```
 
@@ -414,13 +414,13 @@ public class AppDiscoveryService : IAppDiscoveryService
 ```csharp
 public class UninstallEngine : IUninstallEngine
 {
-    // Wykonuje uninstall przez:
+    // Performs uninstall via:
     //   - UninstallString (Process.Start + wait)
     //   - MsiConfigureProduct (msi.dll)
     //   - PackageManager.RemovePackageAsync (UWP)
-    // Obsługuje exit codes
-    // Kill pozostałych procesów (opcjonalnie)
-    // Callback progress do UI
+    // Handles exit codes
+    // Kill remaining processes (optional)
+    // Progress callback to UI
 }
 ```
 
@@ -429,15 +429,15 @@ public class UninstallEngine : IUninstallEngine
 ```csharp
 public class ScanEngine : IScanEngine
 {
-    // RegistryScanner - przeszukuje HKCU, HKLM, HKU\UserSIDs,
+    // RegistryScanner - searches HKCU, HKLM, HKU\UserSIDs,
     //   HKCR\CLSID, TypeLib, Interface, AppID
-    // FileSystemScanner - enumeruje powszechne ścieżki
+    // FileSystemScanner - enumerates common paths
     // ServiceScanner - HKLM\SYSTEM\CurrentControlSet\Services
     // TaskScanner - Scheduled tasks
     // FirewallScanner - COM: INetFwPolicy2
     // ContextMenuScanner - HKCR\*\shell, HKCR\Directory\shell,
     //   HKCR\Folder\shell
-    // EmptyFolderDetector - znajduje puste foldery po usunięciu
+    // EmptyFolderDetector - finds empty folders after removal
 }
 ```
 
@@ -448,7 +448,7 @@ public class BackupService : IBackupService
 {
     // CreateRestorePoint(name) → SRSetRestorePointW
     // ExportRegistryKey(path) → RegExport
-    // SnapshotCurrentState(appId) → zapisuje paths
+    // SnapshotCurrentState(appId) → saves paths
 }
 ```
 
@@ -457,7 +457,7 @@ public class BackupService : IBackupService
 ```csharp
 public class StartupManager : IStartupManager
 {
-    // GetStartupEntries() → lista z 7 lokalizacji
+    // GetStartupEntries() → list from 7 locations
     // ToggleEntry(id, enabled)
     // RemoveEntry(id)
     // AddEntry(entry)
@@ -471,7 +471,7 @@ public class JunkCleaner : IJunkCleaner
 {
     // ScanJunkLocations() → List<JunkItem>
     // CleanSelected(items)
-    // CalculateSavings() → szacowany rozmiar
+    // CalculateSavings() → estimated size
 }
 ```
 
@@ -480,7 +480,7 @@ public class JunkCleaner : IJunkCleaner
 ```csharp
 public class SchedulerService : ISchedulerService
 {
-    // Timer co N dni
+    // Timer every N days
     // Background scan orphaned traces
     // Notify on found or schedule next scan
     // Low I/O priority
@@ -501,7 +501,7 @@ public class ExportService : IExportService
 
 ---
 
-## 7. Interfejsy (Contracts)
+## 7. Interfaces (Contracts)
 
 ```csharp
 // --- Core ---
@@ -524,7 +524,7 @@ public interface IUwpApi { ... }
 
 ---
 
-## 8. Rejestracja DI (Program.cs / App.xaml.cs)
+## 8. DI Registration (Program.cs / App.xaml.cs)
 
 ```csharp
 services.AddSingleton<IAppDiscoveryService, AppDiscoveryService>();
@@ -545,63 +545,63 @@ services.AddTransient<SettingsViewModel>();
 
 ---
 
-## 9. Harmonogram implementacji
+## 9. Implementation Schedule
 
-### Faza 1 — MVP (Core Uninstall)
+### Phase 1 — MVP (Core Uninstall)
 
-| Krok | Opis | Czas szac. |
+| Step | Description | Est. Time |
 |------|------|-----------|
-| 1.1 | Struktura solution, DI, logging, config | 2 dni |
-| 1.2 | AppDiscoveryService — enumeracja z rejestru + UWP | 3 dni |
-| 1.3 | MainWindow + MainViewModel — lista aplikacji | 2 dni |
-| 1.4 | UninstallEngine — MSI + EXE + UWP | 3 dni |
-| 1.5 | ScanEngine — rejestr + pliki po deinstalacji | 4 dni |
-| 1.6 | Scan Results Window — UI + ViewModel | 2 dni |
-| 1.7 | BackupService — Restore Point + Registry Export | 2 dni |
-| 1.8 | Testy integracyjne MVP | 2 dni |
+| 1.1 | Solution structure, DI, logging, config | 2 days |
+| 1.2 | AppDiscoveryService — enumeration from registry + UWP | 3 days |
+| 1.3 | MainWindow + MainViewModel — application list | 2 days |
+| 1.4 | UninstallEngine — MSI + EXE + UWP | 3 days |
+| 1.5 | ScanEngine — registry + files after uninstallation | 4 days |
+| 1.6 | Scan Results Window — UI + ViewModel | 2 days |
+| 1.7 | BackupService — Restore Point + Registry Export | 2 days |
+| 1.8 | MVP integration tests | 2 days |
 
-### Faza 2 — Rozszerzenia
+### Phase 2 — Extensions
 
-| Krok | Opis | Czas szac. |
+| Step | Description | Est. Time |
 |------|------|-----------|
-| 2.1 | Force Uninstall (bez deinstalatora) | 3 dni |
-| 2.2 | Batch Uninstall + UI progresu | 3 dni |
-| 2.3 | Startup Manager | 2 dni |
-| 2.4 | Junk Cleaner | 2 dni |
+| 2.1 | Force Uninstall (without uninstaller) | 3 days |
+| 2.2 | Batch Uninstall + progress UI | 3 days |
+| 2.3 | Startup Manager | 2 days |
+| 2.4 | Junk Cleaner | 2 days |
 
-### Faza 3 — Nowe funkcje (lepsze niż Revo)
+### Phase 3 — New Features (better than Revo)
 
-| Krok | Opis | Czas szac. |
+| Step | Description | Est. Time |
 |------|------|-----------|
-| 3.1 | Scheduler — skan w tle + powiadomienia | 3 dni |
-| 3.2 | Export Service — CSV/JSON/HTML raporty | 2 dni |
-| 3.3 | Dark/Light mode, Mica theme | 2 dni |
-| 3.4 | Testy, dokumentacja, WiX installer | 3 dni |
+| 3.1 | Scheduler — background scan + notifications | 3 days |
+| 3.2 | Export Service — CSV/JSON/HTML reports | 2 days |
+| 3.3 | Dark/Light mode, Mica theme | 2 days |
+| 3.4 | Tests, documentation, WiX installer | 3 days |
 
-**Łącznie szacowany czas: ~38 dni (full-time dev)**
+**Total estimated time: ~38 days (full-time dev)**
 
 ---
 
-## 10. Nowe funkcje vs Revo Uninstaller (podsumowanie)
+## 10. New Features vs Revo Uninstaller (Summary)
 
-| Funkcja | Revo (Free) | Revo (Pro) | BRUTAL |
+| Feature | Revo (Free) | Revo (Pro) | BRUTAL |
 |---------|-------------|------------|--------|
-| Lista aplikacji (Win32 + UWP) | ✅ | ✅ | ✅ |
-| Normalny uninstall | ✅ | ✅ | ✅ |
-| Skan resztek (rejestr + pliki) | ✅ | ✅ | ✅ |
+| Application list (Win32 + UWP) | ✅ | ✅ | ✅ |
+| Normal uninstall | ✅ | ✅ | ✅ |
+| Residual scan (registry + files) | ✅ | ✅ | ✅ |
 | Force uninstall | ❌ | ✅ | ✅ |
 | Backup (Restore Point) | ❌ | ✅ | ✅ |
 | Startup Manager | ✅ (Tools) | ✅ | ✅ |
 | Junk Cleaner | ✅ (Tools) | ✅ | ✅ |
 | Windows Store Apps | ❌ | ✅ | ✅ |
 | **Batch Uninstall** | ❌ | ❌ | ✅ 🆕 |
-| **Scheduler (skan w tle)** | ❌ | ❌ | ✅ 🆕 |
-| **Eksport raportów (CSV/JSON/HTML)** | ❌ | ❌ | ✅ 🆕 |
-| **Darmowy (MIT licencja)** | ✅ (częściowo) | ❌ ($24.95+) | ✅ |
+| **Scheduler (background scan)** | ❌ | ❌ | ✅ 🆕 |
+| **Report export (CSV/JSON/HTML)** | ❌ | ❌ | ✅ 🆕 |
+| **Free (MIT license)** | ✅ (partial) | ❌ ($24.95+) | ✅ |
 
 ---
 
-## 11. Wymagane pakiety NuGet
+## 11. Required NuGet Packages
 
 ```xml
 <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
@@ -612,19 +612,19 @@ services.AddTransient<SettingsViewModel>();
 <PackageReference Include="Serilog.Sinks.Async" Version="1.*" />
 <PackageReference Include="System.Management" Version="8.*" />           <!-- WMI -->
 <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.*" /> <!-- P/Invoke gen -->
-<PackageReference Include="ModernWpfUI" Version="3.*" />                <!-- WinUI 3 style dla WPF -->
-<PackageReference Include="CsvHelper" Version="31.*" />                 <!-- Eksport CSV -->
-<PackageReference Include="xUnit" Version="2.*" />                      <!-- Testy -->
+<PackageReference Include="ModernWpfUI" Version="3.*" />                <!-- WinUI 3 style for WPF -->
+<PackageReference Include="CsvHelper" Version="31.*" />                 <!-- CSV Export -->
+<PackageReference Include="xUnit" Version="2.*" />                      <!-- Tests -->
 <PackageReference Include="Moq" Version="4.*" />                        <!-- Mocking -->
 ```
 
 ---
 
-## 12. Uwagi końcowe
+## 12. Final Notes
 
-- Program będzie wymagał **praw administratora** — manifest z `requireAdministrator`.
-- Aplikacja **przenośna lub instalowana** (WiX installer jako opcja).
-- Wszystkie operacje na rejestrze i plikach są logowane dla bezpieczeństwa.
-- Przed każdą destrukcyjną operacją tworzony jest backup (System Restore Point).
-- UI inspirowany Windows 11 — Mica backdrop, zaokrąglone rogi, ciemny/jasny motyw.
-- Kod w pełni otwarty (MIT) na GitHub.
+- The program will require **administrator privileges** — manifest with `requireAdministrator`.
+- Application **portable or installable** (WiX installer as an option).
+- All registry and file operations are logged for safety.
+- Before each destructive operation, a backup is created (System Restore Point).
+- UI inspired by Windows 11 — Mica backdrop, rounded corners, dark/light theme.
+- Fully open source code (MIT) on GitHub.
