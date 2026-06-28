@@ -1,17 +1,20 @@
-<div align="center">
+<h1 align="center">BR Unistaller</h1>
 
-# BR Unistaller
+> <p align="center">A free, open-source alternative to Revo Uninstaller — built with C# / .NET 8 WPF.</p>
 
-**A free, open-source alternative to Revo Uninstaller — built with C# / .NET 8 WPF.**
+<p align="center">
+  <a href="https://github.com/brutal-build/BR-Unistaller/releases">Releases</a> ·
+  <a href="#features">Features</a> ·
+  <a href="#installation">Installation</a> ·
+  <a href="#tech-stack">Stack</a>
+</p>
 
-[Releases](https://github.com/brutal-build/BR-Unistaller/releases) ·
-[Features](#features) ·
-[Installation](#installation) ·
-[Stack](#stack)
-
-![version](https://img.shields.io/badge/version-0.0.1-blue)![license](https://img.shields.io/badge/license-MIT-white)![platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue)![dotnet](https://img.shields.io/badge/.NET-8.0-purple)
-
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.0.1-blue" alt="version">
+  <img src="https://img.shields.io/badge/license-MIT-white" alt="license">
+  <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="platform">
+  <img src="https://img.shields.io/badge/.NET-8.0-purple" alt="dotnet">
+</p>
 
 ---
 
@@ -20,6 +23,8 @@
 BR Unistaller is a powerful Windows application manager and uninstaller that goes beyond the standard Windows "Add or Remove Programs" panel. It discovers installed applications (Win32, MSI, UWP/Store), handles silent and forced uninstalls, scans for leftover registry keys and files, and manages startup entries — all with a modern dark UI.
 
 Inspired by Revo Uninstaller but free and open source (MIT).
+
+---
 
 ## Features
 
@@ -33,26 +38,46 @@ Inspired by Revo Uninstaller but free and open source (MIT).
 - **Search & Filter** — Real-time search and category filtering (All / Win32 / Store Apps)
 - **Export Reports** — Saves uninstall logs as CSV, JSON, or HTML
 
+---
+
 ## Installation
+
+### Prerequisites
+
+- **Windows 10/11**
+- **[.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)**
+- **Administrator privileges**
+
+### 1. Clone
 
 ```bash
 git clone https://github.com/brutal-build/BR-Unistaller.git
 cd BR-Unistaller
+```
+
+### 2. Build
+
+```bash
 dotnet build -c Release
+```
+
+### 3. Run
+
+```bash
 dotnet publish src/BrutalUninstaller.App -c Release -o publish
 cd publish
 .\BrutalUninstaller.App.exe
 ```
 
-Or download the latest release from [Releases](https://github.com/brutal-build/BR-Unistaller/releases).
-
-> **Requires Windows 10/11 and [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Must be run as Administrator.**
+Or download the latest release from **[Releases](https://github.com/brutal-build/BR-Unistaller/releases)**.
 
 ### Quick Build Script
 
 ```powershell
 .\build-run.ps1
 ```
+
+---
 
 ## Usage
 
@@ -65,16 +90,20 @@ Or download the latest release from [Releases](https://github.com/brutal-build/B
 4. Scan — inspect traces before/after uninstall (registry, files, services)
 5. Use Tools from the sidebar — Startup Manager, Junk Cleaner
 
+---
+
 ## Running Tests
 
 ```bash
 dotnet test -c Release -v normal
 ```
 
-## Stack
+---
+
+## Tech Stack
 
 | Technology | Purpose |
-|---|---|
+|------------|---------|
 | .NET 8 WPF | Desktop framework |
 | CommunityToolkit.Mvvm | MVVM pattern |
 | Microsoft.Extensions.DI | Dependency injection |
@@ -82,6 +111,8 @@ dotnet test -c Release -v normal
 | P/Invoke | Win32 API access |
 | Windows.Management.Deployment | UWP package management |
 | xUnit + Moq | Testing |
+
+---
 
 ## License
 
