@@ -87,6 +87,8 @@ dotnet test -c Release -v normal
 
 MIT — free to use, modify, and distribute.
 
+[![Ko-fi](https://img.shields.io/badge/Support%20me-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/brutalbuild)
+
 ---
 
 Built by [@brutalbuild](https://github.com/brutal-build)
